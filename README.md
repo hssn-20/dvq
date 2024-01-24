@@ -1,11 +1,14 @@
-# DVQ - DNA Validator and Quick comparator 
-This package provides some usefull functions to compare lists of DNA sequences both visually and statistically 
+# DVQ - DNA Validation and Quick comparisons 
+A package with some useful functions to compare DNA sequences both visually and statistically 
 
 ## Commands:
 
-* Use dvq
+* How to use dvq
 ```python
 from dvq import visual
 
-visual.2d_representation([sequences_1, sequences_2], labels=['])
+visual.plot_2d_comparison([seqs_1, seqs_2], ['seq_1', 'seq_2'])
+
 ```
+
+![An example graphic comparing sequences ](Untitled.png "2D Comparison - Same virus")
