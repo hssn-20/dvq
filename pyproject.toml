@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dvq"
-version = "0.0.4.5"
+version = "0.0.4.6"
 description = "This is a library to vlaidate and compare dna sequences"
 readme = "README.md"
 requires-python = ">=3.8"
