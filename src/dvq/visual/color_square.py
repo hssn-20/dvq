@@ -30,7 +30,7 @@ def _fill_spiral(matrix, seq_colors, k):
             left += 1
 
 
-def _generate_color_square(sequence, save=False, count=0):
+def _generate_color_square(sequence, save=False, count=0, label=None):
     # Define the sequence and corresponding colors with indices
     colors = {'a': 0, 't': 1, 'c': 2, 'g': 3, 'n': 4}  # Assign indices to each color
     seq_colors = [colors[char] for char in sequence.lower()]  # Map the sequence to color indices
@@ -50,16 +50,18 @@ def _generate_color_square(sequence, save=False, count=0):
     # Plot the matrix
     plt.figure(figsize=(5, 5))
     plt.imshow(matrix, cmap=cmap, interpolation='nearest')
+    if label:
+        plt.title(label)
     plt.axis('off')  # Hide the axes
     if save:
         plt.savefig(f'color_square_{count}.png', dpi=300, bbox_inches='tight')
     plt.show()    
                
                
-def generate_color_square(sequence, multi=False, save=False):
+def generate_color_square(sequence, multi=False, save=False, label=None):
     if multi:
         for i,seq in enumerate(sequence):
-            _generate_color_square(seq, save, i)
+            _generate_color_square(seq, save, i, label[i] if label else None)
     else:
-        _generate_color_square(sequence, save)
+        _generate_color_square(sequence, save, label=label)
     
