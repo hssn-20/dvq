@@ -23,4 +23,12 @@ visual.plot_2d_comparison([seqs_1, seqs_2], ['seq_1', 'seq_2'])
 
 ```
 
-![An example graphic comparing sequences ](Untitled.png "2D Comparison - Same virus")
+![An example graphic comparing dna sequences for the same virus ](Untitled.png "2D Comparison - Same virus")
+
+```python
+from dvq import statistical
+
+statistical.similarity_wen([seqs_1, seqs_2])
+# 0.99
+
+```
