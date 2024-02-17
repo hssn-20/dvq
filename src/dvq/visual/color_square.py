@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
 
 
-def _fill_spiral(matrix, seq_colors):
+def _fill_spiral(matrix, seq_colors, k):
         left, top, right, bottom = 0, 0, k-1, k-1
         index = 0
         while left <= right and top <= bottom:
@@ -42,7 +42,7 @@ def _generate_color_square(sequence, save=False, count=0):
     matrix = np.full((k, k), colors['n'], dtype=int)
 
     # Fill the matrix in a clockwise spiral
-    _fill_spiral(matrix, seq_colors)
+    _fill_spiral(matrix, seq_colors, k)
 
     # Define a custom color map for plotting
     cmap = ListedColormap(['red', 'green', 'yellow', 'blue', 'white'])
