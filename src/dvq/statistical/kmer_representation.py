@@ -44,12 +44,6 @@ def permutation_overlap(sequence1, sequence2, kmer=6):
 
     return _calculate_overlap(counts1, counts2)
 
-# Rest of the functions remain unchanged
-
-# Example call (ensure seqs_1 is a list of DNA sequence strings)
-# permutation_overlap_comparison(seqs_1[:10], seqs_1[11:20], kmer=7)
-
-
 def permutation_overlap_group(sequences:list, kmer= 7):
     """ Calculate the permutation overlap between all sequences in a list """
     if kmer <= 0:
@@ -67,6 +61,7 @@ def permutation_overlap_group(sequences:list, kmer= 7):
         overlap_groups.append(overlap_group)
 
     return overlap_groups
+
 def permutation_overlap_comparison(sequences1: list, sequences2: list, kmer=7):
     """ Calculate the permutation overlap between all sequences in two lists """
     if kmer <= 0:
