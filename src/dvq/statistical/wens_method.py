@@ -34,8 +34,6 @@ def _normalised_moment_of_inertia(polar_coordinates, weightings):
 def _calculate_standard_coordinates(polar_coordinates):
     return [rho * np.cos(theta) for theta, rho in polar_coordinates], [rho * np.sin(theta) for theta, rho in polar_coordinates]
 
-def similarity_wen(normalised_moment_of_inertia_1:list, normalised_moment_of_inertia_2:list):
-    return np.sqrt(sum((x - y)**2 for x, y in zip(normalised_moment_of_inertia_1, normalised_moment_of_inertia_2)))
 
 def _moments_of_inertia(polar_coordinates, weightings):
     return [_normalised_moment_of_inertia(indices, weightings) for subsequence, indices in polar_coordinates.items()]
@@ -45,3 +43,10 @@ def moment_of_inertia(sequence, WEIGHTS, L=5000, E=0.0375):
     polar_coordinates = {subsequence: _calculate_coordinates_fixed(indices, len(sequence)) for subsequence, indices in subsequences.items()}
     weightings = _calculate_weighting_full(sequence, WEIGHTS, L=L, E=E)
     return _moments_of_inertia(polar_coordinates, weightings)
+
+
+def similarity_wen(sequence1, sequence2, WEIGHTS, L=5000, E=0.0375):
+    inertia1 = moment_of_inertia(sequence1, WEIGHTS, L=L, E=E)
+    inertia2 = moment_of_inertia(sequence2, WEIGHTS, L=L, E=E)
+    similarity = np.sqrt(sum((x - y)**2 for x, y in zip(inertia1, inertia2)))
+    return similarity
