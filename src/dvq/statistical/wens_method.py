@@ -1,8 +1,6 @@
 # # Wens Method
 # This a method to generate numerical representation fo DNA that takes into account both local and global information. The method is based on (this)[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5953932/] paper. The method is based on a weighted graphical representation of a sequence. 
 
-# ### Graphical Representation
-# We can represent a DNA sequence as the sum of its component sequences(A,T,C,G). These subsequences can themselves be represented graphically. 
 
 
 # Importing the necessary libraries
