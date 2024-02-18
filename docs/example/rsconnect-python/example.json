@@ -1,0 +1,12 @@
+{
+    "https://api.shinyapps.io": {
+        "server_url": "https://api.shinyapps.io",
+        "filename": "/workspaces/dvq/docs/example",
+        "app_url": "https://viruses.shinyapps.io/2d-virus-plots1/",
+        "app_id": 11256335,
+        "app_guid": null,
+        "title": "2d-virus-plots",
+        "app_mode": "python-shiny",
+        "app_store_version": 1
+    }
+}

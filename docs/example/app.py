@@ -9,9 +9,7 @@ from collections import namedtuple
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
-from tqdm import tqdm
 from pathlib import Path
-
 # using a faster style for plotting
 mplstyle.use('fast')
 
