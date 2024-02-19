@@ -10,6 +10,7 @@ A package with some useful functions to compare DNA sequences both visually and 
 - [ ] [Perpelxity](https://arxiv.org/pdf/1202.2518.pdf)
 - [ ] [Entropy](https://pubmed.ncbi.nlm.nih.gov/9344742/)
 - [x] [2D Line](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC162336/)
+- [x] [Chaos Game Representation](Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS2001037021004736&usg=AOvVaw38odDudWfUCAqbc626rD2e&opi=89978449)
 - [x] K-Mer overlap
 - [x] [Wen's Method](https://pubmed.ncbi.nlm.nih.gov/29765099/)
 

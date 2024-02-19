@@ -6,6 +6,9 @@ import matplotlib.style as mplstyle
 from tqdm import tqdm
 from pathlib import Path
 
+from collections import defaultdict
+from itertools import product
+
 # using a faster style for plotting
 mplstyle.use('fast')
 
