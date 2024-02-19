@@ -263,7 +263,10 @@ def wens_method_heatmap(df, virus_species):
     for virus1 in virus_species:
         for virus2 in virus_species:
             if virus1 == virus2:
-                similarity_df.loc[virus1, virus2] = 0
+                sequence1 = df[df['Organism_Name'] == virus1]['Sequence'].values[0]
+                sequence2 = df[df['Organism_Name'] == virus2]['Sequence'].values[1]
+                similarity = similarity_wen(sequence1, sequence2, WEIGHTS)
+                similarity_df.loc[virus1, virus2] = similarity
             else:
                 sequence1 = df[df['Organism_Name'] == virus1]['Sequence'].values[0]
                 sequence2 = df[df['Organism_Name'] == virus2]['Sequence'].values[0]
@@ -362,7 +365,10 @@ def plot_color_square(df, virus_species):
         data = df[i]
         virus = virus_species[row]
                 # Define the sequence and corresponding colors with indices
-        colors = {'a': 0, 't': 1, 'c': 2, 'g': 3, 'n': 4}  # Assign indices to each color
+        colors = {'a': 0, 't': 1, 'c': 2, 'g': 3, 'n': 4} 
+        # remove all non-nucleotide characters
+        data = ''.join([char for char in data.lower() if char in 'atcgn'])
+        # Assign indices to each color
         seq_colors = [colors[char] for char in data.lower()]  # Map the sequence to color indices
 
         # Calculate k (size of the square)
@@ -621,7 +627,8 @@ def chaos_4d_representation(dna_sequence):
     points = [encode_nucleotide_to_vector(dna_sequence[0])]
     for nucleotide in dna_sequence[1:]:
         vector = encode_nucleotide_to_vector(nucleotide)
-        if 
+        if vector is None:
+            continue
         next_point = 0.5 * (points[-1] + vector)
         points.append(next_point)
     return np.array(points)
@@ -803,17 +810,19 @@ def plot_diagrams(
 
 
 def plot_persistence_homology(df, virus_species):
-    if len(virus_species.unique()) > 1:
+    # if len(virus_species.unique()) > 1:
         c4dr_points = [chaos_4d_representation(sequence.lower()) for sequence in df]
-        dgm_dna = [ripser.ripser(points[::10], maxdim=1)['dgms'] for points in c4dr_points]
-        labels =[f'{virus_specie}_{i}' for i, virus_specie in enumerate(virus_species)]
-        fig, ax = plot_diagrams([dgm[1] for dgm in dgm_dna], labels=virus_species)
-    else:
-        c4dr_points = [chaos_4d_representation(sequence.lower()) for sequence in df]
-        dgm_dna = [ripser.ripser(points[::10], maxdim=1)['dgms'] for points in c4dr_points]
+        dgm_dna = [ripser.ripser(points[::15], maxdim=1)['dgms'] for points in c4dr_points]
         labels =[f'{virus_specie}_{i}' for i, virus_specie in enumerate(virus_species)]
         fig, ax = plot_diagrams([dgm[1] for dgm in dgm_dna], labels=labels)
-    return fig
+    # else:
+    #     c4dr_points = [chaos_4d_representation(sequence.lower()) for sequence in df]
+    #     dgm_dna = [ripser.ripser(points[::10], maxdim=1)['dgms'] for points in c4dr_points]
+    #     labels =[f'{virus_specie}_{i}' for i, virus_specie in enumerate(virus_species)]
+    #     print(labels)
+    #     print(len(dgm_dna))
+    #     fig, ax = plot_diagrams([dgm[1] for dgm in dgm_dna], labels=labels)
+        return fig
     
 def compare_persistence_homology(dna_sequence1, dna_sequence2):
     dgm_dna1 = persistence_homology(dna_sequence1)
@@ -823,19 +832,19 @@ def compare_persistence_homology(dna_sequence1, dna_sequence2):
 
 ############################################################# UI #################################################################
 ui.page_opts(fillable=True)
-ui.panel_title("Whats in your DNA?")
+ui.panel_title("How similar are viruses, to themselves and others? Do they have undelying structure?")
 with ui.layout_columns():
     with ui.card():
         ui.input_selectize(  
             "virus_selector",  
-            "Select viruses:",
+            "Select your viruses:",
             virus,
             multiple=True,  
         )  
     with ui.card():
         ui.input_selectize(  
         "plot_type",  
-        "Select method:",
+        "Select your method:",
         ["Chaos Game Representation", "2D Line", "ColorSquare", "Persistant Homology", "Wens Method"],
         multiple=False,  
     )
