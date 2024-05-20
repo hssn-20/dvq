@@ -1,5 +1,8 @@
 # DVQ - DNA Validations and Quick comparisons 
-A package with some useful functions to compare DNA sequences both visually and statistically. 
+Abstract
+We introduce DVQ (DNA Visualisations and Quick comparisons), an open-source Python library for exploring nucleotide sequences using a variety of methods. Understanding DNA sequences intuitively isimportant for a variety of tasks in biology. DVQ aims to be a one-stop comprehensive library that makes explainable DNA easy for geneticists, researchers, and practitioners who need explanations. For practitioners, the library provides an easy-to-use interface to generate visualisations for their sequencesby only writing a few lines of code. In this report, we demonstrate several example use cases across different types of sequences as well as visualisations. 
+
+Simple early version preprint: http://dx.doi.org/10.13140/RG.2.2.19227.89125
 
 ## Methods:
 - [x] [Persistant Homological Representations](https://american-cse.org/csci2022-ieee/pdfs/CSCI2022-2lPzsUSRQukMlxf8K2x89I/202800b599/202800b599.pdf)
