@@ -44,12 +44,12 @@ def kl_divergence(seq_P: str, seq_Q: str) -> float:
 
 
 
-# %%
-# test case
+# # %%
+# # test case
 
-seq_p = "ACGTACGTACGTACGTACGT"
-seq_q = "ACGTACGTACGTACGTGCGC"
+# seq_p = "ACGTACGTACGTACGTACGT"
+# seq_q = "ACGTACGTACGTACGTGCGC"
 
 
-kl_div = kl_divergence(seq_p, seq_q)
-print(f"KL Divergence: {kl_div}")
+# kl_div = kl_divergence(seq_p, seq_q)
+# print(f"KL Divergence: {kl_div}")
