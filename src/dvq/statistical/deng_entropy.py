@@ -5,8 +5,18 @@ from collections import Counter
 from itertools import combinations
 from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
+from typing import Tuple, List
 
-def get_possiblities(seq):
+def get_possibilities(seq: Tuple[str, ...]) -> int:
+    """
+    Calculate the number of unique possible combinations for a given sequence.
+    
+    Parameters:
+    seq (Tuple[str, ...]): The input sequence as a tuple of characters.
+    
+    Returns:
+    int: The number of unique possible combinations.
+    """
     if len(seq) == 1:
         return 1
 
@@ -26,10 +36,29 @@ def get_possiblities(seq):
 
     return len(filtered_combs)
 
-def dedupe(s):
+def dedupe(s: str) -> str:
+    """
+    Remove duplicate characters and sort the remaining characters in a string.
+    
+    Parameters:
+    s (str): The input string.
+    
+    Returns:
+    str: A string with unique and sorted characters.
+    """
     return ''.join(sorted(set(s)))
 
-def generalised_version(seq, chunk_size=10):
+def generalised_version(seq: str, chunk_size: int = 10) -> float:
+    """
+    Calculate the generalised entropy for a given sequence using a specified chunk size.
+    
+    Parameters:
+    seq (str): The input sequence.
+    chunk_size (int): The size of each chunk.
+    
+    Returns:
+    float: The calculated entropy.
+    """
     seq = seq[:10_000]
     seq_len = len(seq)
 
@@ -42,7 +71,7 @@ def generalised_version(seq, chunk_size=10):
 
     # Calculate chunk percentages and possibilities
     chunk_percentages = np.array([chunk_counter[chunk] / seq_len for chunk in unique_chunks])
-    chunk_possibilities = np.array([get_possiblities(chunk) or 1 for chunk in unique_chunks])
+    chunk_possibilities = np.array([get_possibilities(chunk) or 1 for chunk in unique_chunks])
 
     # Handle single element case
     if len(set(seq)) == 1:
@@ -50,20 +79,34 @@ def generalised_version(seq, chunk_size=10):
 
     # Vectorized entropy calculation
     mask = chunk_possibilities > 1000
-    entropy_high = np.sum(chunk_percentages[mask] * (np.log2(chunk_percentages[mask]/ chunk_possibilities[mask] )))
-    entropy_low = np.sum(chunk_percentages[~mask] * np.log2(chunk_percentages[~mask] / (chunk_possibilities[~mask])))
-    print( -(entropy_high + entropy_low))
+    entropy_high = np.sum(chunk_percentages[mask] * (np.log2(chunk_percentages[mask]/ chunk_possibilities[mask])))
+    entropy_low = np.sum(chunk_percentages[~mask] * np.log2(chunk_percentages[~mask] / chunk_possibilities[~mask]))
+    
     return -(entropy_high + entropy_low)
 
-
-
-def process_sequence(seq):
+def process_sequence(seq: str) -> float:
+    """
+    Process a single sequence to calculate its generalised entropy.
+    
+    Parameters:
+    seq (str): The input sequence.
+    
+    Returns:
+    float: The calculated entropy.
+    """
     return generalised_version(seq)
 
-def calculate_deng_entropies_multiprocess(
-        seqs, 
-        num_cores = cpu_count()
-    ):
+def calculate_deng_entropies_multiprocess(seqs: List[str], num_cores: int = cpu_count()) -> List[float]:
+    """
+    Calculate the generalised entropy for multiple sequences using multiprocessing.
+    
+    Parameters:
+    seqs (List[str]): The list of input sequences.
+    num_cores (int): The number of cores to use for multiprocessing.
+    
+    Returns:
+    List[float]: A list of calculated entropies for each sequence.
+    """
     with Pool(num_cores) as pool:
         entropies = list(tqdm(pool.imap(process_sequence, seqs), total=len(seqs)))
     return entropies
@@ -88,7 +131,7 @@ def main():
 
     # df_lineage
 
-    df_lineage = pd.read_csv('data/Viral Complexity - host_lineage.csv')
+    df_lineage = pd.read_csv('data_testing/Viral Complexity - host_lineage.csv')
 
     cleaned_lineage = []
     for i in range(len(df_lineage)):
@@ -122,7 +165,7 @@ def main():
 
     df_cleaned = pd.DataFrame(cleaned_lineage)
 
-    df_filter.to_parquet('data/df_filtered.parquet')
+    df_filter.to_parquet('data_testing/df_filtered.parquet')
 
     # df_cleaned.phylum.value_counts()
 
@@ -131,7 +174,7 @@ def main():
     # df_filter
 
     df_filter['entropy'] = entropies
-    df_filter.to_parquet('data/viral_complexity_deng_entropy.parquet')
+    df_filter.to_parquet('data_testing/viral_complexity_deng_entropy.parquet')
 
     # deng_entropy_optimized(df_filter.iloc[39]['seq'])
 
@@ -155,6 +198,6 @@ def main():
     #     create_pr=False,
     # )
 
-
+# %%
 if __name__ == "__main__":
     main()
