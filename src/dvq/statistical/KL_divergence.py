@@ -20,24 +20,6 @@ def calculate_probabilities(seq: str, chunk_size: int = 10) -> Dict[str, float]:
     return probabilities
 
 
-def kl_divergence(P: Dict[str, float], Q: Dict[str, float]) -> float:
-    """
-    Calculate the KL divergence between two probability distributions.
-    
-    Parameters:
-    P (Dict[str, float]): The first probability distribution.
-    Q (Dict[str, float]): The second probability distribution.
-    
-    Returns:
-    float: The KL divergence.
-    """
-    kl_div = 0.0
-    for chunk, p_prob in P.items():
-        q_prob = Q.get(chunk, 1e-10)  # To avoid division by zero, use a small value for missing chunks in Q
-        kl_div += p_prob * np.log2(p_prob / q_prob)
-    return kl_div
-
-
 def kl_divergence(seq_P: str, seq_Q: str) -> float:
     """
     Calculate the KL divergence between two probability distributions.
@@ -54,9 +36,12 @@ def kl_divergence(seq_P: str, seq_Q: str) -> float:
 
     kl_div = 0.0
     for chunk, p_prob in P.items():
-        q_prob = Q.get(chunk, 1e-10)  # To avoid division by zero, use a small value for missing chunks in Q
+        q_prob = Q.get(chunk)
+        if q_prob is None or q_prob == 0:
+            continue  # Skip the term if q_prob is zero or the chunk is not in Q
         kl_div += p_prob * np.log2(p_prob / q_prob)
     return kl_div
+
 
 
 # %%
@@ -65,8 +50,6 @@ def kl_divergence(seq_P: str, seq_Q: str) -> float:
 seq_p = "ACGTACGTACGTACGTACGT"
 seq_q = "ACGTACGTACGTACGTGCGC"
 
-P = calculate_probabilities(seq_p)
-Q = calculate_probabilities(seq_q)
 
-kl_div = kl_divergence(P, Q)
+kl_div = kl_divergence(seq_p, seq_q)
 print(f"KL Divergence: {kl_div}")
