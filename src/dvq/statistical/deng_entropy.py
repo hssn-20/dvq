@@ -68,5 +68,93 @@ def calculate_deng_entropies_multiprocess(
         entropies = list(tqdm(pool.imap(process_sequence, seqs), total=len(seqs)))
     return entropies
 
-seqs = df_filter['seq'].tolist()
-entropies = calculate_entropies(seqs)
+
+# %%
+# test chase
+from datasets import load_dataset
+import pandas as pd
+from huggingface_hub import HfApi
+
+def main():
+    ds = load_dataset("DNA-LLM/virus_detailed_clean")
+
+    df = pd.DataFrame(ds['train'])
+
+    df_filter = df.groupby('family').head(5).reset_index(drop=True)
+
+    seqs = df_filter['seq'].tolist()
+
+    entropies = calculate_deng_entropies_multiprocess(seqs)
+
+    # df_lineage
+
+    df_lineage = pd.read_csv('data/Viral Complexity - host_lineage.csv')
+
+    cleaned_lineage = []
+    for i in range(len(df_lineage)):
+        cleaned_data = {}
+    for m in range(11):
+        if m ==0:
+            continue
+        if df_lineage.iloc[i][f'rank_{m}'] =='species':
+            cleaned_data['species'] = df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='genus':
+            cleaned_data['genus'] = df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='family':
+            cleaned_data['family'] =df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='order':
+            cleaned_data['order'] =df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='class':
+            cleaned_data['class'] = df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='phylum':
+            cleaned_data['phylum'] = df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='kingdom':
+            cleaned_data['kingdom'] = df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='superkingdom':
+            cleaned_data['superkingdom'] = df_lineage.iloc[i][f'name_{m}']
+        if df_lineage.iloc[i][f'rank_{m}'] =='clade':
+            cleaned_data['clade'] = df_lineage.iloc[i][f'name_{m}']
+    cleaned_lineage.append(cleaned_data)
+
+    # df_lineage
+
+    # df_lineage[i][f'rank_{m}'] =='species'
+
+    df_cleaned = pd.DataFrame(cleaned_lineage)
+
+    df_filter.to_parquet('data/df_filtered.parquet')
+
+    # df_cleaned.phylum.value_counts()
+
+    df_filter.merge(df_lineage, left_on = 'host', right_on = 'name_1')
+
+    # df_filter
+
+    df_filter['entropy'] = entropies
+    df_filter.to_parquet('data/viral_complexity_deng_entropy.parquet')
+
+    # deng_entropy_optimized(df_filter.iloc[39]['seq'])
+
+    # df_filter.iloc[39]
+
+    # %%
+    # upload
+    api = HfApi()
+    
+    # api.create_repo(
+    #     repo_id="DNA-LLM/viral_complexity_deng_entropy",
+    #     repo_type="dataset",
+    #     private=True,  # set to True if you want the repository to be private
+    # )
+
+    # api.upload_file(
+    #     path_or_fileobj="data/viral_complexity_deng_entropy.parquet",
+    #     path_in_repo=f"data/viral_complexity_deng_entropy.parquet",
+    #     repo_id="DNA-LLM/viral_complexity_deng_entropy",
+    #     repo_type="dataset",
+    #     create_pr=False,
+    # )
+
+
+if __name__ == "__main__":
+    main()
