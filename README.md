@@ -9,9 +9,10 @@ Simple early version preprint: http://dx.doi.org/10.13140/RG.2.2.19227.89125
 - [x] [ColorSquare](https://match.pmf.kg.ac.rs/electronic_versions/Match68/n2/match68n2_621-637.pdf)
 - [x] [C-Curve](https://pubmed.ncbi.nlm.nih.gov/23246806/) - Removed from development plan due it being redundant vs a 2D Line
 - [x] [Spider Representation](https://www.researchgate.net/publication/260971259_Spider_Representation_of_DNA_Sequences) - Removed from development plan due to it being found to be difficult to use for large sequences
+- [x] [KL Divergence] plain, computes distros of chunks similar to deng entropy.
 - [ ] [KL Divergence](https://pubmed.ncbi.nlm.nih.gov/31981184/)
 - [ ] [Perpelxity](https://arxiv.org/pdf/1202.2518.pdf)
-- [ ] [Entropy](https://pubmed.ncbi.nlm.nih.gov/9344742/)
+- [x] [Entropy](https://pubmed.ncbi.nlm.nih.gov/9344742/)
 - [x] [2D Line](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC162336/)
 - [x] [Chaos Game Representation](Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS2001037021004736&usg=AOvVaw38odDudWfUCAqbc626rD2e&opi=89978449)
 - [x] K-Mer overlap
