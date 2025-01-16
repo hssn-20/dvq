@@ -15,8 +15,8 @@ Simple early version preprint: http://dx.doi.org/10.13140/RG.2.2.19227.89125
 
 ### Statistical
 - [x] Deng entropy
-- [x] [KL Divergence] plain, computes distros of chunks similar to deng entropy.
-- [x] [KL Divergence] KL div like measure using deng entropy.
+- [x] KL Divergence plain, computes distros of chunks similar to deng entropy.
+- [x] KL Divergence KL div like measure using deng entropy.
 - [ ] [KL Divergence](https://pubmed.ncbi.nlm.nih.gov/31981184/)
 - [ ] [Perpelxity](https://arxiv.org/pdf/1202.2518.pdf)
 - [x] [Entropy](https://pubmed.ncbi.nlm.nih.gov/9344742/)
