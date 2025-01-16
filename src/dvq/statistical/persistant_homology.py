@@ -7,7 +7,11 @@ NUCLEOTIDE_MAPPING = {
     'a': np.array([1, 0, 0, 0]),
     'c': np.array([0, 1, 0, 0]),
     'g': np.array([0, 0, 1, 0]),
-    't': np.array([0, 0, 0, 1])
+    't': np.array([0, 0, 0, 1]),
+    'A': np.array([1, 0, 0, 0]),
+    'C': np.array([0, 1, 0, 0]),
+    'G': np.array([0, 0, 1, 0]),
+    'T': np.array([0, 0, 0, 1])
 }
 
 def encode_nucleotide_to_vector(nucleotide):

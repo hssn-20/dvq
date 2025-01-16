@@ -6,6 +6,7 @@ from .deng_entropy import (
     calculate_deng_entropies_multiprocess,
     deng_KL_divergence
 )
+from .KL_divergence import kl_divergence
 
 __all__ = [
     'permutation_overlap_group',
@@ -16,5 +17,6 @@ __all__ = [
     'compare_persistence_homology',
     'denq_entropy_generalised',
     'calculate_deng_entropies_multiprocess',
-    'deng_KL_divergence'
+    'deng_KL_divergence',
+    'kl_divergence'
 ]

@@ -1,6 +1,8 @@
 import numpy as np
 
 from typing import List, Dict
+from collections import Counter
+
 
 def calculate_probabilities(seq: str, chunk_size: int = 10) -> Dict[str, float]:
     """
