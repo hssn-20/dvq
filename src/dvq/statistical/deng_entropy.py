@@ -49,7 +49,7 @@ def dedupe(s: str) -> str:
     """
     return ''.join(sorted(set(s)))
 
-def generalised_version(seq: str, chunk_size: int = 10) -> float:
+def denq_entropy_generalised(seq: str, chunk_size: int = 10) -> float:
     """
     Calculate the generalised entropy for a given sequence using a specified chunk size.
     
@@ -95,7 +95,7 @@ def process_sequence(seq: str) -> float:
     Returns:
     float: The calculated entropy.
     """
-    return generalised_version(seq)
+    return denq_entropy_generalised(seq)
 
 def calculate_deng_entropies_multiprocess(seqs: List[str], num_cores: int = cpu_count()) -> List[float]:
     """
@@ -127,8 +127,8 @@ def deng_KL_divergence(seq_P: str, seq_Q: str, chunk_size: int = 10) -> float:
     float: The computed KL divergence-like metric.
     """
     # Compute Deng entropy for both sequences
-    deng_entropy_P = generalised_version(seq_P, chunk_size)
-    deng_entropy_Q = generalised_version(seq_Q, chunk_size)
+    deng_entropy_P = denq_entropy_generalised(seq_P, chunk_size)
+    deng_entropy_Q = denq_entropy_generalised(seq_Q, chunk_size)
 
     # Avoid division by zero or log of zero
     if deng_entropy_P == 0 or deng_entropy_Q == 0:
