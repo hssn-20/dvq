@@ -112,3 +112,29 @@ def calculate_deng_entropies_multiprocess(seqs: List[str], num_cores: int = cpu_
         entropies = list(tqdm(pool.imap(process_sequence, seqs), total=len(seqs)))
     return entropies
 
+
+# experimental 
+def deng_KL_divergence(seq_P: str, seq_Q: str, chunk_size: int = 10) -> float:
+    """
+    Compute a KL divergence-like metric using Deng entropy for two sequences.
+    
+    Parameters:
+    seq_P (str): The first sequence.
+    seq_Q (str): The second sequence.
+    chunk_size (int): Chunk size for calculating Deng entropy (default: 10).
+    
+    Returns:
+    float: The computed KL divergence-like metric.
+    """
+    # Compute Deng entropy for both sequences
+    deng_entropy_P = generalised_version(seq_P, chunk_size)
+    deng_entropy_Q = generalised_version(seq_Q, chunk_size)
+
+    # Avoid division by zero or log of zero
+    if deng_entropy_P == 0 or deng_entropy_Q == 0:
+        raise ValueError("Deng entropy is zero for one or both sequences, cannot compute KL divergence.")
+
+    # Compute the KL divergence-like metric
+    deng_kl_div = deng_entropy_P * np.log2(deng_entropy_P / deng_entropy_Q)
+    
+    return deng_kl_div
