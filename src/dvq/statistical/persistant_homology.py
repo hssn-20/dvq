@@ -1,7 +1,8 @@
-import numpy as np
 import persim
 import ripser
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 NUCLEOTIDE_MAPPING = {
     'a': np.array([1, 0, 0, 0]),
@@ -14,8 +15,10 @@ NUCLEOTIDE_MAPPING = {
     'T': np.array([0, 0, 0, 1])
 }
 
+
 def encode_nucleotide_to_vector(nucleotide):
     return NUCLEOTIDE_MAPPING[nucleotide]
+
 
 def chaos_4d_representation(dna_sequence):
     points = [encode_nucleotide_to_vector(dna_sequence[0])]
@@ -24,6 +27,7 @@ def chaos_4d_representation(dna_sequence):
         next_point = 0.5 * (points[-1] + vector)
         points.append(next_point)
     return np.array(points)
+
 
 def persistence_homology(dna_sequence, multi=False, plot=False, sample_rate=7):
     if multi:
@@ -37,6 +41,7 @@ def persistence_homology(dna_sequence, multi=False, plot=False, sample_rate=7):
         if plot:
             persim.plot_diagrams(dgm_dna[1])
     return dgm_dna
+
 
 def compare_persistence_homology(dna_sequence1, dna_sequence2):
     dgm_dna1 = persistence_homology(dna_sequence1)

@@ -1,13 +1,17 @@
 import numpy as np
 
+# Constants
 WEIGHTS = {'0100': 1/6, '0101': 2/6, '1100' : 3/6, '0110':3/6, '1101': 4/6, '1110': 5/6,'0111':5/6, '1111': 6/6}
 LOWEST_LENGTH = 5000
+
 
 def _get_subsequences(sequence):
     return {nuc: [i+1 for i, x in enumerate(sequence) if x == nuc] for nuc in 'ACTG'}
 
+
 def _calculate_coordinates_fixed(subsequence, L=LOWEST_LENGTH):
     return [((2 * np.pi / (L - 1)) * (K-1), np.sqrt((2 * np.pi / (L - 1)) * (K-1))) for K in subsequence]
+
 
 def _calculate_weighting_full(sequence, WEIGHTS, L=LOWEST_LENGTH, E=0.0375):
     weightings = [0]
@@ -23,13 +27,16 @@ def _calculate_weighting_full(sequence, WEIGHTS, L=LOWEST_LENGTH, E=0.0375):
     weightings.append(0)
     return weightings
 
+
 def _centre_of_mass(polar_coordinates, weightings):
     x, y = _calculate_standard_coordinates(polar_coordinates)
     return sum(weightings[i] * ((x[i] - (x[i]*weightings[i]))**2 + (y[i] - y[i]*weightings[i])**2) for i in range(len(x)))
 
+
 def _normalised_moment_of_inertia(polar_coordinates, weightings):
     moment = _centre_of_mass(polar_coordinates, weightings)
     return np.sqrt(moment / sum(weightings))
+
 
 def _calculate_standard_coordinates(polar_coordinates):
     return [rho * np.cos(theta) for theta, rho in polar_coordinates], [rho * np.sin(theta) for theta, rho in polar_coordinates]
@@ -37,6 +44,7 @@ def _calculate_standard_coordinates(polar_coordinates):
 
 def _moments_of_inertia(polar_coordinates, weightings):
     return [_normalised_moment_of_inertia(indices, weightings) for subsequence, indices in polar_coordinates.items()]
+
 
 def moment_of_inertia(sequence, WEIGHTS=WEIGHTS, L=5000, E=0.0375):
     subsequences = _get_subsequences(sequence)

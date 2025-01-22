@@ -1,9 +1,11 @@
 from collections import Counter
 import itertools
 
+
 def _generate_all_permutations(kmer):
     nucleotides = ['A', 'T', 'G', 'C']
     return [''.join(p) for p in itertools.product(nucleotides, repeat=kmer)]
+
 
 def _permutation_counts(sequence, permutations):
     if not isinstance(sequence, str):
@@ -17,6 +19,7 @@ def _permutation_counts(sequence, permutations):
 def _validate_counts(counts):
     if not isinstance(counts, dict):
         raise TypeError("Counts must be a dictionary")
+
 
 def _calculate_overlap(counts1, counts2):
     _validate_counts(counts1)
