@@ -1,6 +1,6 @@
 # Orignial function written by Hassan Ahmed Hassan, following: 
-# TODO: Add paper doi
-# %%
+# https://doi.org/10.1016/j.chaos.2016.07.014
+
 import numpy as np
 from collections import Counter
 from itertools import combinations
