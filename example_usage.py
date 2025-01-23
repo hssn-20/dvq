@@ -1,8 +1,7 @@
 # %%
 # Example usage for all scripts
 from src.dvq.statistical import (
-    permutation_overlap_group,
-    permutation_overlap_comparison,
+    average_kmer_jaccard_similarity,
     similarity_wen,
     moment_of_inertia,
     persistence_homology,
@@ -57,11 +56,11 @@ def main():
 
     # Test k-mer functions
     print("\n--- Testing k-mer functions ---")
-    overlap_group = permutation_overlap_group(seqs)
-    print(f"Permutation overlap group: {overlap_group}")
+    overlap_group = average_kmer_jaccard_similarity(seqs, seqs)
+    print(f"Self similarity: {overlap_group}")
 
-    overlap_comparison = permutation_overlap_comparison(seq_1, seq_2)
-    print(f"Permutation overlap comparison: {overlap_comparison}")
+    overlap_comparison = average_kmer_jaccard_similarity(seq_1, seq_2)
+    print(f"Kmer similarity: {overlap_comparison}")
 
     return
 
