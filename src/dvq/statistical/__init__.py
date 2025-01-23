@@ -1,4 +1,4 @@
-from .kmer_representation import permutation_overlap_group, permutation_overlap_comparison
+from .kmer_representation import average_kmer_jaccard_similarity
 from .wens_method import similarity_wen, moment_of_inertia
 from .persistant_homology import persistence_homology, compare_persistence_homology
 from .deng_entropy import (
@@ -9,8 +9,7 @@ from .deng_entropy import (
 from .KL_divergence import kl_divergence
 
 __all__ = [
-    'permutation_overlap_group',
-    'permutation_overlap_comparison',
+    'average_kmer_jaccard_similarity',
     'similarity_wen',
     'moment_of_inertia',
     'persistence_homology',

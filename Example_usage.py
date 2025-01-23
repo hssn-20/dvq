@@ -63,6 +63,8 @@ def main():
     overlap_comparison = permutation_overlap_comparison(seq_1, seq_2)
     print(f"Permutation overlap comparison: {overlap_comparison}")
 
+    return
+
 if __name__ == "__main__":
     main()
 

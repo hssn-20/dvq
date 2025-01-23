@@ -15,7 +15,8 @@ dependencies = [
     "persim", 
     "ripser", 
     "Cython", 
-    "tqdm"
+    "tqdm", 
+    "sourmash",
 ]
 
 [tool.setuptools.packages.find]
