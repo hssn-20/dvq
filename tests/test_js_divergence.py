@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
-from src.dvq.statistical.JS_divergence import js_divergence
+from dvq.statistical.JS_divergence import js_divergence
+
 
 def test_js_identity():
     """
@@ -11,7 +12,7 @@ def test_js_identity():
     assert np.isclose(js_divergence(seq,seq), 0.0)
 
 def test_js_symmetry():
-    """
+    """got status
     Symmetry: JS(seq_1, seq_2) == JS(seq_2, seq_1)
     Test that JS Divergence is symmetrical.
     """
