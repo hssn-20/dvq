@@ -1,5 +1,5 @@
 import pytest
-from src.dvq.statistical.kmer_representation import average_kmer_jaccard_similarity
+from dvq.statistical.kmer_representation import average_kmer_jaccard_similarity
 
 def test_identical_sequences():
     """Test that identical sequences yield a high Jaccard similarity."""
@@ -50,4 +50,5 @@ def test_list_of_sequences():
     # the second list has 'GGGG' which doesn't appear in seq1_list.
     # But there's partial overlap on "ATGC".
     assert 0.1 <= similarity <= 0.9, f"Expected similarity between 0.1 and 0.9, got {similarity}"
+
 

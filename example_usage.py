@@ -9,7 +9,8 @@ from src.dvq.statistical import (
     denq_entropy_generalised,
     calculate_deng_entropies_multiprocess,
     deng_KL_divergence,
-    kl_divergence
+    kl_divergence,
+    js_divergence
 )
 
 from src.dvq.functional import (
@@ -40,6 +41,7 @@ def main():
     seq_2 = "GCTA" * 1000
     seqs = [seq_1, seq_2, "TTAA" * 1000]
 
+      
     # Test Deng Entropy
     print("\n--- Testing Deng Entropy ---")
     entropy = denq_entropy_generalised(seq_1)
@@ -52,7 +54,7 @@ def main():
     print("\n--- Testing Deng KL Divergence ---")
     kl_div = deng_KL_divergence(seq_1, seq_2)
     print(f"Deng KL divergence: {kl_div}")
-
+    
     # Test Standard KL Divergence
     print("\n--- Testing Standard KL Divergence ---")
     kl_div_standard = kl_divergence(seq_1, seq_2)
@@ -81,7 +83,12 @@ def main():
 
     overlap_comparison = average_kmer_jaccard_similarity(seq_1, seq_2)
     print(f"Kmer similarity: {overlap_comparison}")
-
+    
+    # Test JS Divergence
+    print("\n--- Testing JS Divergence ---")
+    js = js_divergence(seq_1, seq_2)
+    print(f"JS divergence: {js}")
+    
     return
 
 if __name__ == "__main__":
@@ -91,5 +98,7 @@ if __name__ == "__main__":
 ## TODO: 
 # 
 # Add features:
-# JS divergence, 
+# JS divergence <- done
 # Wasserstein distance
+
+# %%
